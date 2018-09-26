@@ -8,19 +8,22 @@ const mutations = {
     setGameState: (state, payload) => {
         state.game = payload;
     },
-    changeGameState: (state, payload) => {
+    updateGameState: (state, payload) => {
         state.game = {...state.game, ...payload};
     }
 }
 
 const actions = {
-    startGame: ({ commit }) => {
+    startGame: ({ commit, dispatch }) => {
         axios.post('https://www.dragonsofmugloar.com/api/v2/game/start')
             .then (response => response.data)
-            .then (payload => commit('setGameState', payload));
+            .then (payload => {
+                commit('setGameState', payload)
+                dispatch('makeMessageboard', payload)
+            });
     },
-    setGameState:({ commit }, payload) => {
-        commit('changeGameState', payload);
+    updateGameState:({ commit }, payload) => {
+        commit('updateGameState', payload);
 }
 }
 

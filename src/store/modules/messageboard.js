@@ -12,13 +12,19 @@ const actions = {
     makeMessageboard: ({ commit }, gameData) => {
         axios.get(`https://www.dragonsofmugloar.com/api/v2/${ gameData.gameId }/messages`)
             .then(response => response.data)
-            .then(payload => commit('setMessageboardState', payload))
+            .then(payload => commit('setMessageboardState', payload));
+            //console.log('made board')
 
     },
-    doQuest: ({ commit }, {gameData, adData} ) => {
-        axios.post(`https://www.dragonsofmugloar.com/api/v2/${ gameData.gameId }/solve/${ adData.adId }`)
+    doQuest: ({ commit, dispatch }, { game, quest } ) => {
+        axios.post(`https://www.dragonsofmugloar.com/api/v2/${ game.gameId }/solve/${ quest.adId }`)
             .then(response => response.data)
-            .then(payload => commit('updateStats', payload))
+            .then(payload => {
+                commit('updateGameState', payload);
+                dispatch('makeMessageboard', game)
+            }
+        );
+
     }
 }
 

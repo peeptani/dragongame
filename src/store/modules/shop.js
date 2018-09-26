@@ -1,7 +1,16 @@
+import axios from 'axios'
+
+const state = {
+    shop: {}
+}
+
+const mutations = {}
+
+const actions = {}
+
+
 const getters = {
-    messages: state => {
-        return state.messages
-    }
+    shop: state => state.shop
 }
 
 export default {

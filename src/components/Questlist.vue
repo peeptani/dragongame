@@ -1,7 +1,7 @@
 <template>
-    <div>
+    <b-list-group>
         <app-quest v-for="quest in $store.getters.messageboard" :quest="quest" :key="quest.adId"></app-quest>
-    </div>
+    </b-list-group>
 </template>
 
 <script>

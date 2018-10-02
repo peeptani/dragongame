@@ -18,8 +18,9 @@ const actions = {
         axios.post('https://www.dragonsofmugloar.com/api/v2/game/start')
             .then (response => response.data)
             .then (payload => {
-                commit('setGameState', payload)
-                dispatch('makeMessageboard', payload)
+                commit('setGameState', payload);
+                dispatch('makeMessageboard', payload);
+                dispatch('makeShop', payload)
             });
     },
     updateGameState:({ commit }, payload) => {

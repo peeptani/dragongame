@@ -1,17 +1,16 @@
 <template>
     <div>
         <app-header></app-header>
-        <section class="container pt-4">
-            <div class="row">
-                <div class="col-xs-6">
-                    <div class="card-columns">
-                        <app-questlist></app-questlist>
-                    </div>
-                </div>
-
+        <div class="row">
+            <div class="col-md-4">
+                <app-shop></app-shop>
             </div>
-        </section>
-
+            <div class="col-md-8">
+                <div>
+                    <app-questlist></app-questlist>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -36,3 +35,7 @@ export default {
 }
 
 </script>
+
+<style>
+
+</style>

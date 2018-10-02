@@ -11,9 +11,19 @@ const mutations = {
 const actions = {
     makeMessageboard: ({ commit }, gameData) => {
         axios.get(`https://www.dragonsofmugloar.com/api/v2/${ gameData.gameId }/messages`)
-            .then(response => response.data)
+            .then(response => {
+                // Some data is encoded so it needs to be decoded.
+                for (let payload in response.data) {
+                    if (response.data[payload].hasOwnProperty('encrypted')) {
+                        response.data[payload].message = atob(response.data[payload].message)
+                        response.data[payload].probability = atob(response.data[payload].probability)
+                    }
+                }
+                return response.data
+            })
             .then(payload => commit('setMessageboardState', payload));
-            //console.log('made board')
+
+
 
     },
     doQuest: ({ commit, dispatch }, { game, quest } ) => {

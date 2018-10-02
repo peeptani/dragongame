@@ -8,7 +8,7 @@
         </div>
         <div class="game-bar">
             <p style="margin: 0;">Turns left:</p>
-            <b-progress  style="width: 80%; margin-left: 20px;" height="5px" :variant="((quest.expiresIn === 1) ? 'danger' : 'dark')" :value="quest.expiresIn" :max="7"></b-progress>
+            <b-progress  style="width: 90%; margin-left: 20px;" height="5px" :variant="((quest.expiresIn === 1) ? 'danger' : 'dark')" :value="quest.expiresIn" :max="7"></b-progress>
         </div>
     </div>
 </template>

@@ -16,6 +16,7 @@ const actions = {
                 for (let payload in response.data) {
                     if (response.data[payload].hasOwnProperty('encrypted')) {
                         response.data[payload].message = atob(response.data[payload].message)
+                        response.data[payload].adId = atob(response.data[payload].adId)
                         response.data[payload].probability = atob(response.data[payload].probability)
                     }
                 }

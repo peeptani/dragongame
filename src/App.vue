@@ -17,7 +17,6 @@ export default {
 
 <style>
     body {
-        padding-top: 100px;
-        background-color: gainsboro;
+        background-color: ghostwhite;
     }
 </style>

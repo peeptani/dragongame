@@ -1,7 +1,7 @@
 <template>
-    <b-list-group>
-        <app-quest v-for="quest in $store.getters.messageboard" :quest="quest" :key="quest.adId"></app-quest>
-    </b-list-group>
+    <div>
+        <app-quest class="game-quests" v-for="(quest, index) in $store.getters.messageboard" :quest="quest" :key="quest.adId"></app-quest>
+    </div>
 </template>
 
 <script>
@@ -13,3 +13,4 @@ export default {
     }
 }
 </script>
+

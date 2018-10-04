@@ -6,13 +6,15 @@
                 <app-shop></app-shop>
             </div>
             <app-questlist class="game-quests-column"></app-questlist>
-            <!--<app-quest
+
+            <!--<app-quest TODO Find more graceful way to implent v-for placing of quests on grid. This would help unaccepted quests to stay on same location.
                     class="game-quests-column"
                     :style="{'grid-column-start': ((index<5)? 4 : 5 ), 'grid-row-start': ((index<5)? index+2 : index-3 )}"
                     v-for="(quest, index) in $store.getters.messageboard"
                     :quest="quest"
                     :key="quest.adId"></app-quest>-->
         </div>
+        <!--<p>{{ reputation }}</p>-->
         <div>Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
     </div>
 </template>
@@ -32,7 +34,7 @@ export default {
         appQuest: Quest
     },
     computed: {
-        ...mapGetters(['game', 'messageboard', 'shop'])
+        ...mapGetters(['game', 'messageboard', 'shop', 'reputation'])
     },
     created () {
         this.$store.dispatch('startGame');
@@ -46,7 +48,7 @@ export default {
     .game-grid {
         grid-template-columns: 40px 280px 40px 1fr 40px;
         grid-template-rows: 100px 1fr ;
-        grid-auto-flow: row dense;
+        grid-auto-flow: dense;
     }
     .game-shop {
         grid-column-start: 2;
@@ -64,10 +66,10 @@ export default {
 
     }
 }
-@media (max-width: 999px) {
+@media (max-width: 768px) {
     .game-grid {
         grid-template-columns: auto 1fr auto;
-        grid-template-rows: 170px 680px 1fr;
+        grid-template-rows: 50px 680px 1fr;
     }
     .game-shop {
         grid-column-start: 2;
@@ -93,5 +95,4 @@ export default {
     align-self: stretch;
     display: grid;
 }
-
 </style>

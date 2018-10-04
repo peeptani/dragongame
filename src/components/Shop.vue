@@ -23,7 +23,7 @@ export default {
             }
         },
         buttonState (item) {
-            if (item.cost < this.game.gold)
+            if (item.cost <= this.game.gold)
                 return false
             else
                 return true

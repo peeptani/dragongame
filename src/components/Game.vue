@@ -5,7 +5,13 @@
             <div class="game-shop">
                 <app-shop></app-shop>
             </div>
-            <app-quest  class="game-quests-column" :style="{'grid-column-start': ((index<5)? 4 : 5 ), 'grid-row-start': ((index<5)? index+2 : index-3 )}" v-for="(quest, index) in $store.getters.messageboard" :quest="quest" :key="quest.adId"></app-quest>
+            <app-questlist class="game-quests-column"></app-questlist>
+            <!--<app-quest
+                    class="game-quests-column"
+                    :style="{'grid-column-start': ((index<5)? 4 : 5 ), 'grid-row-start': ((index<5)? index+2 : index-3 )}"
+                    v-for="(quest, index) in $store.getters.messageboard"
+                    :quest="quest"
+                    :key="quest.adId"></app-quest>-->
         </div>
         <div>Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
     </div>
@@ -26,20 +32,7 @@ export default {
         appQuest: Quest
     },
     computed: {
-        ...mapGetters(['game', 'messageboard', 'shop']),
-        questRow (index) {
-            console.log(index)
-            if (index < 5) {
-                return index+2
-            }
-            else return index-3
-        },
-        questColumn (index) {
-            if (index < 5) {
-                return 3
-            }
-            else return 4
-        }
+        ...mapGetters(['game', 'messageboard', 'shop'])
     },
     created () {
         this.$store.dispatch('startGame');
@@ -49,20 +42,56 @@ export default {
 </script>
 
 <style>
+@media (max-width: 1920px) {
+    .game-grid {
+        grid-template-columns: 40px 280px 40px 1fr 40px;
+        grid-template-rows: 100px 1fr ;
+        grid-auto-flow: row dense;
+    }
+    .game-shop {
+        grid-column-start: 2;
+        grid-column-end: 3;
+        grid-row-start: 2;
+        grid-row-end: 3;
+    }
+    .game-quests-column{
+        grid-column-start: 4;
+        grid-column-end: 5;
+        grid-row-start: 2;
+        grid-row-end: 3;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: repeat(5, 1fr);
+
+    }
+}
+@media (max-width: 999px) {
+    .game-grid {
+        grid-template-columns: auto 1fr auto;
+        grid-template-rows: 170px 680px 1fr;
+    }
+    .game-shop {
+        grid-column-start: 2;
+        grid-column-end: 3;
+        grid-row-start: 2;
+        grid-row-end: 3;
+    }
+    .game-quests-column{
+        justify-self: center;
+        grid-column-start: 2;
+        grid-column-end: 3;
+        grid-row-start: 3;
+        grid-row-end: 12;
+        grid-template-columns: 1fr ;
+        grid-template-rows: repeat(10, 1fr);
+
+    }
+}
 .game-grid {
     display: grid;
-    grid-auto-flow: row dense;
-    grid-template-columns: 50px auto 50px 1fr 1fr 50px;
-    grid-template-rows: 100px repeat(5, 1fr) auto;
-}
-.game-shop {
-    grid-column-start: 2;
-    grid-column-end: 3;
-    grid-row-start: 2;
-    grid-row-end: 6;
 }
 .game-quests-column{
     align-self: stretch;
+    display: grid;
 }
 
 </style>

@@ -12,7 +12,7 @@ const actions = {
     makeMessageboard: ({ commit }, gameData) => {
         axios.get(`https://www.dragonsofmugloar.com/api/v2/${ gameData.gameId }/messages`)
             .then(response => {
-                // Some data is encoded so it needs to be decoded.
+                // Some of data is encoded.
                 for (let payload in response.data) {
                     if (response.data[payload].hasOwnProperty('encrypted')) {
                         response.data[payload].message = atob(response.data[payload].message)

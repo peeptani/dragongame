@@ -1,18 +1,26 @@
 <template>
-    <div class="quest">
-
-
-        <p style="align-self: center">{{ quest.message }}</p>
-        <div class="button-wrapper">
-            <p class="badge badge-warning"> Reward: {{ quest.reward }}</p>
-            <b-button variant="outline-secondary" class="take-quest" @click="takeQuest(quest)">Go on this Quest</b-button>
-            <span style="float:right;"><p class="badge badge-danger"> Probability: {{ quest.probability }} </p></span>
+    <transition name="fade">
+        <div class="quest">
+            <p class="message-text">{{ quest.message }}</p>
+            <div class="button-wrapper">
+                <p class="badge badge-warning"> Reward: {{ quest.reward }}</p>
+                <b-button
+                        variant="outline-secondary"
+                        class="take-quest"
+                        @click="takeQuest(quest)"
+                >Go on this Quest</b-button>
+                <span style="float:right;"><p class="badge badge-danger"> Probability: {{ quest.probability }} </p></span>
+            </div>
+            <div class="game-bar">
+                <p class="game-bar-text">Turns left:</p>
+                <b-progress  style="width: 90%; margin-left: 20px;" height="5px"
+                             :variant="((quest.expiresIn === 1) ? 'danger' : 'secondary')"
+                             :value="quest.expiresIn"
+                             :max="7"
+                ></b-progress>
+            </div>
         </div>
-        <div class="game-bar">
-            <p style="margin: 0;">Turns left:</p>
-            <b-progress  style="width: 90%; margin-left: 20px;" height="5px" :variant="((quest.expiresIn === 1) ? 'danger' : 'secondary')" :value="quest.expiresIn" :max="7"></b-progress>
-        </div>
-    </div>
+    </transition>
 </template>
 
 <script>
@@ -37,8 +45,8 @@ export default {
         flex-wrap: wrap;
         min-width: 400px;
         min-height: 0;
-        max-width: 600px;
-        max-height: 200px;
+        
+        max-height: 250px;
         overflow: hidden;
         border: 1px solid lightgrey;
         padding: 10px;
@@ -59,8 +67,24 @@ export default {
         justify-content: center;
     }
     .game-bar {
-        margin-top: 10px;
+        margin-top: 0px;
         align-items: center;
         display: flex;
+        width: 100%;
+    }
+    .message-text {
+        text-align: center;
+        margin-bottom: 5px;
+    }
+    .game-bar-text {
+        font-size: 12px;
+        margin-bottom: 0px;
+    }
+
+    .fade-enter-active, .fade-leave-active {
+        transition: opacity 2.2s;
+    }
+    .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+        opacity: 0;
     }
 </style>

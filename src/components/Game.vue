@@ -2,7 +2,7 @@
     <div>
         <app-header></app-header>
         <div class="game-grid">
-            <div class="game-shop">
+            <div v-if="mobileView" class="game-shop">
                 <app-shop></app-shop>
             </div>
             <app-questlist class="game-quests-column"></app-questlist>
@@ -34,11 +34,22 @@ export default {
         appQuest: Quest
     },
     computed: {
-        ...mapGetters(['game', 'messageboard', 'shop', 'reputation'])
+        ...mapGetters(['game', 'messageboard', 'shop', 'reputation', 'mobileView'])
     },
     created () {
         this.$store.dispatch('startGame');
     },
+    mounted() {
+        this.$nextTick(() => {
+            window.addEventListener('resize', () => {
+                if (window.innerWidth<=768) {
+                    this.$store.dispatch('changeViewport', false)
+                } else {
+                    this.$store.dispatch('changeViewport', true)
+                }
+            })
+        })
+    }
 }
 
 </script>
@@ -69,7 +80,7 @@ export default {
 @media (max-width: 768px) {
     .game-grid {
         grid-template-columns: auto 1fr auto;
-        grid-template-rows: 50px 680px 1fr;
+        grid-template-rows: 50px 1fr;
     }
     .game-shop {
         grid-column-start: 2;

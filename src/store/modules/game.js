@@ -1,7 +1,8 @@
 import axios from 'axios'
 
 const state = {
-    game: {}
+    game: {},
+    mobileView: false
 }
 
 const mutations = {
@@ -10,6 +11,10 @@ const mutations = {
     },
     updateGameState: (state, payload) => {
         state.game = {...state.game, ...payload};
+    },
+    setMobileView: (state, payload) => {
+        console.log(payload)
+        state.mobileView = payload;
     }
 }
 
@@ -25,12 +30,16 @@ const actions = {
     },
     updateGameState:({ commit }, payload) => {
         commit('updateGameState', payload);
-}
+    },
+    changeViewport:({ commit }, payload) => {
+        commit('setMobileView', payload)
+    }
 }
 
 
 const getters = {
-    game: state => state.game
+    game: state => state.game,
+    mobileView: state => state.mobileView
 }
 
 export default {

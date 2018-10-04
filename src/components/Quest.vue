@@ -4,11 +4,11 @@
             <p class="message-text">{{ quest.message }}</p>
             <div class="button-wrapper">
                 <p class="badge badge-warning"> Reward: {{ quest.reward }}</p>
-                <b-button
+                <button
                         variant="outline-secondary"
                         class="take-quest"
                         @click="takeQuest(quest)"
-                >Go on this Quest</b-button>
+                >Go on this Quest</button>
                 <span style="float:right;"><p class="badge badge-danger"> Probability: {{ quest.probability }} </p></span>
             </div>
             <div class="game-bar">
@@ -40,7 +40,7 @@ export default {
 
 </script>
 
-<style scoped>
+<style>
 
 .quest {
     display: flex;
@@ -55,10 +55,15 @@ export default {
     border-radius: 5px;
 }
 .take-quest {
-    padding-top: 0px;
-    padding-bottom: 0px;
+    padding: 0 5px;
     margin: 0 auto;
     border-radius: 5px;
+    background-color: transparent;
+    border-color: #6c757d;
+    border: 1px solid;
+}
+.take-quest:hover {
+    background-color: lightgray;
 }
 .button-wrapper {
     width: 100%;
@@ -73,8 +78,8 @@ export default {
     width: 100%;
 }
 .message-text {
+    margin: 0 auto 5px ;
     text-align: center;
-    margin-bottom: 5px;
 }
 .game-bar-text {
     font-size: 14px;

@@ -19,4 +19,7 @@ export default {
     body {
         background-color: ghostwhite;
     }
+    button:focus {
+        outline: none;
+    }
 </style>

@@ -2,7 +2,7 @@ import axios from 'axios'
 
 const state = {
     game: {},
-    mobileView: false
+    mobileView: true
 }
 
 const mutations = {
@@ -13,7 +13,6 @@ const mutations = {
         state.game = {...state.game, ...payload};
     },
     setMobileView: (state, payload) => {
-        console.log(payload)
         state.mobileView = payload;
     }
 }
@@ -28,8 +27,10 @@ const actions = {
                 dispatch('makeShop', payload)
             });
     },
-    updateGameState:({ commit }, payload) => {
+    updateGameState:({ commit, dispatch }, payload) => {
         commit('updateGameState', payload);
+        if (payload.lives <= 0) {
+            dispatch('showDeathPopup', true)}
     },
     changeViewport:({ commit }, payload) => {
         commit('setMobileView', payload)

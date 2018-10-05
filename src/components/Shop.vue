@@ -34,6 +34,11 @@ export default {
 </script>
 
 <style>
+@media (max-width: 768px) {
+    .shop {
+        width: 100%;
+    }
+}
     .shop {
         border: 1px solid lightgrey;
         padding: 15px;

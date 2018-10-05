@@ -1,27 +1,24 @@
 <template>
-
-        <div class="quest">
-            <p class="message-text">{{ quest.message }}</p>
-            <div class="button-wrapper">
-                <p class="badge badge-warning"> Reward: {{ quest.reward }}</p>
-                <button
-                        variant="outline-secondary"
-                        class="take-quest"
-                        @click="takeQuest(quest)"
-                >Go on this Quest</button>
-                <span style="float:right;"><p class="badge badge-danger"> Probability: {{ quest.probability }} </p></span>
-            </div>
-            <div class="game-bar">
-                <p class="game-bar-text">Turns left:</p>
-                <b-progress  style="width: 85%; margin-left: 10px;" height="7px"
-                             :variant="((quest.expiresIn === 1) ? 'danger' : 'secondary')"
-                             :value="quest.expiresIn"
-                             :max="7"
-                ></b-progress>
-            </div>
+    <div class="quest">
+        <p class="message-text">{{ quest.message }}</p>
+        <div class="button-wrapper">
+            <button
+                    variant="outline-secondary"
+                    class="take-quest"
+                    @click="takeQuest(quest)"
+            >Go on this Quest</button>
         </div>
-    </transition>
-
+        <b-progress  class="game-progress-bar"
+                     :variant="((quest.expiresIn === 1) ? 'danger' : 'secondary')"
+                     :value="quest.expiresIn"
+                     :max="7"
+        ></b-progress>
+        <div class="game-bar">
+            <p class="game-bar-text">Turns left:</p>
+            <p class="reward"> Reward: {{ quest.reward }}</p>
+            <p class="difficulty"> Probability: {{ quest.probability }} </p>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -72,9 +69,10 @@ export default {
     justify-content: center;
 }
 .game-bar {
-    margin-top: 0px;
-    align-items: baseline;
     display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    margin-top: 0px;
     width: 100%;
 }
 .message-text {
@@ -82,7 +80,40 @@ export default {
     text-align: center;
 }
 .game-bar-text {
-    font-size: 14px;
-    margin-bottom: 0px;
+    font-size: 12px;
+    font-weight: bold;
+    background: lightgrey;
+    border-radius: 5px;
+    align-self: flex-end;
+    margin: 0;
+    padding: 0 5px;
+    white-space: nowrap;
+}
+.reward {
+    font-size: 12px;
+    font-weight: bold;
+    background: gold;
+    border-radius: 5px;
+    align-self: flex-end;
+    margin: 0;
+    padding: 0 5px;
+    white-space: nowrap;
+}
+.difficulty {
+    font-size: 12px;
+    font-weight: bold;
+    color: white;
+    background: red;
+    border-radius: 5px;
+    align-self: flex-end;
+    margin: 0;
+    padding: 0 5px;
+    white-space: nowrap;
+}
+.game-progress-bar {
+    width: 100%;
+    height: 7px;
+    align-self: flex-start;
+    margin: 3px;
 }
 </style>

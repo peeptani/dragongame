@@ -1,12 +1,16 @@
 import axios from 'axios'
 
 const state = {
-    shop: {}
+    shop: {},
+    mobileShop: false
 }
 
 const mutations = {
     setShopState: (state, payload) => {
         state.shop = payload;
+    },
+    setMobileShop: (state, payload) => {
+        state.mobileShop = payload;
     }
 }
 
@@ -24,11 +28,15 @@ const actions = {
                 dispatch('makeMessageboard', game)
                 dispatch('makeShop', game)
             })
+    },
+    toggleMobileShop: ({ commit }, payload) => {
+        commit('setMobileShop', payload)
     }
 }
 
 const getters = {
-    shop: state => state.shop
+    shop: state => state.shop,
+    mobileShop: state => state.mobileShop
 }
 
 export default {

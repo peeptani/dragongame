@@ -38,15 +38,11 @@ const actions = {
 
 
     },
-    doQuest: ({ commit, dispatch }, { game, quest } ) => {
+    doQuest: ({ dispatch }, { game, quest } ) => {
         axios.post(`https://www.dragonsofmugloar.com/api/v2/${ game.gameId }/solve/${ quest.adId }`)
             .then(response => response.data)
-            .then(payload => {
-                commit('updateGameState', payload);
-                dispatch('makeMessageboard', game)
-            }
-        );
-
+                .then(payload => dispatch('updateGameState', payload))
+                    .then (dispatch('makeMessageboard', game));
     }
 }
 

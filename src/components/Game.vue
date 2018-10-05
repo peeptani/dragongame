@@ -2,7 +2,7 @@
     <div>
         <app-header></app-header>
         <div class="game-grid">
-            <div v-if="mobileView" class="game-shop">
+            <div v-if="mobileShop || !mobileView" :class="[{'mobile-shop': mobileView}, 'desktop-shop']">
                 <app-shop></app-shop>
             </div>
             <app-questlist class="game-quests-column"></app-questlist>
@@ -14,8 +14,10 @@
                     :quest="quest"
                     :key="quest.adId"></app-quest>-->
         </div>
+        <app-popup v-if="popup">
+            <app-notify slot="content"></app-notify>
+        </app-popup>
         <!--<p>{{ reputation }}</p>-->
-        <div>Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
     </div>
 </template>
 
@@ -24,6 +26,8 @@ import Shop from './Shop.vue';
 import Questlist from './Questlist.vue';
 import Quest from './Quest.vue'
 import Header from './Header.vue';
+import Popup from './Popup.vue'
+import Notify from './Notify.vue'
 import { mapGetters } from 'vuex';
 
 export default {
@@ -31,21 +35,31 @@ export default {
         appShop: Shop,
         appQuestlist: Questlist,
         appHeader: Header,
-        appQuest: Quest
+        appQuest: Quest,
+        appPopup: Popup,
+        appNotify: Notify
     },
     computed: {
-        ...mapGetters(['game', 'messageboard', 'shop', 'reputation', 'mobileView'])
+        ...mapGetters(['game', 'messageboard', 'shop', 'reputation', 'mobileView', 'mobileShop', 'popup'])
     },
     created () {
         this.$store.dispatch('startGame');
+        this.$store.dispatch('showStartPopup');
+        if (window.innerWidth<=768) {
+            this.$store.dispatch('changeViewport', true)
+            this.$store.dispatch('toggleMobileShop', false)
+        } else {
+            this.$store.dispatch('changeViewport', false)
+            this.$store.dispatch('toggleMobileShop', false)
+        }
     },
     mounted() {
         this.$nextTick(() => {
             window.addEventListener('resize', () => {
                 if (window.innerWidth<=768) {
-                    this.$store.dispatch('changeViewport', false)
-                } else {
                     this.$store.dispatch('changeViewport', true)
+                } else {
+                    this.$store.dispatch('changeViewport', false)
                 }
             })
         })
@@ -61,7 +75,7 @@ export default {
         grid-template-rows: 100px 1fr ;
         grid-auto-flow: dense;
     }
-    .game-shop {
+    .desktop-shop {
         grid-column-start: 2;
         grid-column-end: 3;
         grid-row-start: 2;
@@ -82,13 +96,13 @@ export default {
         grid-template-columns: auto 1fr auto;
         grid-template-rows: 50px 1fr;
     }
-    .game-shop {
+    .desktop-shop {
         grid-column-start: 2;
         grid-column-end: 3;
         grid-row-start: 2;
         grid-row-end: 3;
     }
-    .game-quests-column{
+    .game-quests-column {
         justify-self: center;
         grid-column-start: 2;
         grid-column-end: 3;
@@ -97,6 +111,18 @@ export default {
         grid-template-columns: 1fr ;
         grid-template-rows: repeat(10, 1fr);
 
+    }
+    .mobile-shop {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(1, 5, 6, .7);
+        border-radius: 2px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
+        transition: all .3s ease;
     }
 }
 .game-grid {

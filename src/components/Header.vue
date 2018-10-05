@@ -1,22 +1,16 @@
 <template>
     <div>
         <div class="game-header fixed-top">
-            <img class="dragon-head"  src="../../public/fierce_dragon.svg">
-            <img v-if="!mobileView" class="shop" @click="toggleShop = !toggleShop" src="../../public/Shop.svg">
-
-
-            <p v-if="mobileView" class="game-title">Dragons of Mugloar</p>
-
-            <div :class="!mobileView ? 'game-footer fixed-bottom' : 'info-tab' ">
+            <img class="dragon-head"  src="../../public/HornedDragon.svg">
+            <img v-if="mobileView" class="shop" @click="toggleShop()" src="../../public/Shop.svg">
+            <p v-if="!mobileView" class="game-title">Dragons of Mugloar</p>
+            <div :class="mobileView ? 'game-footer fixed-bottom' : 'info-tab' ">
                 <p class="game-text">Level <span class="game-info">{{ game.level }}</span></p>
                 <p class="game-text">Lives <span :class="[{'game-warning' : (game.lives <= 1)}, 'game-info']">{{ game.lives }}</span></p>
                 <p class="game-text">Gold <span class="game-info">{{ game.gold }}</span></p>
                 <p class="game-text">Score <span class="game-info">{{ game.score }}</span></p>
             </div>
-            <button class="take-quest" variant="outline-secondary" @click="startNewGame">New Game</button>
-        </div>
-        <div class="mobile-shop fixed-top">
-            <app-shop v-if="(toggleShop && !mobileView)"></app-shop>
+            <button class="take-quest" variant="outline-secondary" @click="$store.dispatch('startGame')">New Game</button>
         </div>
     </div>
 </template>
@@ -24,15 +18,10 @@
 import Shop from './Shop.vue';
 import { mapGetters } from 'vuex';
 export default {
-    data () {
-        return {
-            toggleShop: false
-        }
-    },
-    computed: mapGetters(['game', 'mobileView']),
+    computed: mapGetters(['game', 'mobileView', 'mobileShop']),
     methods: {
-        startNewGame () {
-        this.$store.dispatch('startGame');
+        toggleShop () {
+            this.$store.dispatch('toggleMobileShop', !this.mobileShop)
         }
     },
     components: {
@@ -52,7 +41,7 @@ export default {
     }
     .game-header {
 
-        grid-template-columns: 70px minmax(240px, 300px) 1fr 100px;
+        grid-template-columns: 90px minmax(240px, 300px) 1fr 150px;
         grid-template-rows: 70px;
     }
     .info-tab {
@@ -108,11 +97,6 @@ export default {
         border: none;
         height: 70px;
     }
-    .mobile-shop {
-        margin-top: 40px;
-        background-color: whitesmoke;
-        z-index: 1;
-    }
 }
 .game-header {
     display: grid;
@@ -146,5 +130,8 @@ export default {
 .dragon-head {
     justify-self: left;
     margin-left: 15px;
+}
+.take-quest {
+    margin-right: 20px;
 }
 </style>

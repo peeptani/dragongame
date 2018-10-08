@@ -1,8 +1,15 @@
 import axios from 'axios'
 import { rot13 } from './decode.js'
+import {Howl, Howler} from 'howler'
 
-let coinSound = new Audio('../../coin.mp3')
-let damageSound = new Audio('../../damage.mp3')
+/*let coinSound = new Audio('/coin.mp3')
+let damageSound = new Audio('/damage.mp3')*/
+let coinSound = new Howl({
+    src: [`./../../coin.mp3`]
+})
+let damageSound = new Howl({
+    src: [`./../../damage.mp3`]
+})
 
 const state = {
     messageboard: {},

@@ -32,6 +32,7 @@ export default {
             this.$store.dispatch('toggleMobileShop', !this.mobileShop)
         },
         newGame () {
+            this.$store.dispatch('deleteQuestResult')
             this.$store.dispatch('toggleMobileShop', false)
             this.$store.dispatch('startGame')
         }
@@ -90,6 +91,9 @@ export default {
     border: 1px solid;
     white-space: nowrap;
     justify-self: center;
+}
+.header-button:hover {
+    background-color: darkgrey;
 }
 .success-enter-active {
     transition: 1.75s;
@@ -158,8 +162,7 @@ export default {
     .shop-icon {
         background-color: transparent;
         border: none;
-        height: 40px;
+        height: 30px;
     }
-
 }
 </style>

@@ -43,8 +43,6 @@ export default {
     display: flex;
     flex-wrap: wrap;
     min-width: 300px;
-    min-height: 0;
-    max-height: 250px;
     border: 1px solid lightgrey;
     padding: 10px;
     background-color: whitesmoke;
@@ -56,8 +54,7 @@ export default {
     margin: 0 auto;
     border-radius: 5px;
     background-color: transparent;
-    border-color: #6c757d;
-    border: 1px solid;
+    border: 1px solid grey;
     white-space: nowrap;
     align-self: flex-end;
     justify-self: right;

@@ -1,5 +1,7 @@
 import axios from 'axios'
 
+let clickSound = new Audio('../../click.mp3')
+
 const state = {
     shop: {},
     mobileShop: false,
@@ -15,7 +17,6 @@ const mutations = {
     },
     shopping: (state, payload) => {
         state.doingShopping = payload;
-        console.log(payload)
     }
 }
 
@@ -24,6 +25,7 @@ const actions = {
         axios.get(`https://www.dragonsofmugloar.com/api/v2/${game.gameId}/shop`)
             .then (response => response.data)
             .then (payload => commit('setShopState', payload))
+            .catch(()=> console.log('Shop is closed today'))
     },
     makePurchase: ({commit, dispatch}, {game, item}) => {
         axios.post(`https://www.dragonsofmugloar.com/api/v2/${game.gameId}/shop/buy/${item.id}`)
@@ -33,7 +35,10 @@ const actions = {
                 commit('updateGameState', payload)
                 dispatch('makeMessageboard', game)
                 dispatch('makeShop', game)
-            })
+                }
+            )
+            .catch(()=> console.log('You are too poor, sorry'))
+        clickSound.play()
     },
     toggleMobileShop: ({ commit }, payload) => {
         commit('setMobileShop', payload)

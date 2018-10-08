@@ -32,7 +32,8 @@ const actions = {
                 commit('setGameState', payload);
                 dispatch('makeMessageboard', payload);
                 dispatch('makeShop', payload)
-            });
+            })
+            .catch(()=> console.log('The knights broke the internets'))
     },
     updateGameState:({ commit, dispatch }, payload) => {
         commit('updateGameState', payload);

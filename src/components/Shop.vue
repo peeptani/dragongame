@@ -9,7 +9,6 @@
 
 <script>
 import { mapGetters } from 'vuex';
-
 export default {
     computed: mapGetters (['shop', 'game']),
     methods: {
@@ -33,7 +32,7 @@ export default {
     margin-left: auto;
     background-color: darkgray;
     border-radius: 5px;
-    border: 1px solid;
+    border: 1px solid grey;
     padding: 0 5px;
 }
 .disabled {
@@ -43,8 +42,8 @@ export default {
 .enabled {
     background-color: gold;
 }
-.shop-button:focus {
-    outline: none;
+.enabled:hover {
+    background-color: beige;
 }
 .shop-item {
     background-color: whitesmoke;

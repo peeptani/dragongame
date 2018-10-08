@@ -1,10 +1,9 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
-import App from './App.vue';
+import Vue from 'vue'
+import App from './App.vue'
 import BootstrapVue from 'bootstrap-vue'
-import { store } from './store/index.js';
+import { store } from './store/index.js'
 
-Vue.use(BootstrapVue);
+Vue.use(BootstrapVue)
 
 new Vue({
     store,

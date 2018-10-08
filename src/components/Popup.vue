@@ -5,7 +5,6 @@
                 <div class="modal-container">
                     <div class="modal-content">
                         <slot name="content"></slot>
-                        <slot name="info"></slot>
                     </div>
                 </div>
             </div>
@@ -40,28 +39,5 @@
 }
 .modal-content {
     text-align: center;
-}
-.modal-body {
-}
-
-/*
- * The following styles are auto-applied to elements with
- * transition="modal" when their visibility is toggled
- * by Vue.js.
- *
- * You can easily play with the modal transition by editing
- * these styles.
- */
-
-.modal-enter {
-    opacity: 0;
-}
-.modal-leave-active {
-    opacity: 0;
-}
-.modal-enter .modal-container,
-.modal-leave-active .modal-container {
-    -webkit-transform: scale(1.1);
-    transform: scale(0.1);
 }
 </style>

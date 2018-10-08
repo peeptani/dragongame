@@ -6,13 +6,6 @@
                 <app-shop></app-shop>
             </div>
             <app-questlist class="game-quests-column"></app-questlist>
-
-            <!--<app-quest TODO Find more graceful way to implement v-for placing of quests on grid. This would help unaccepted quests to stay on same location.
-                    class="game-quests-column"
-                    :style="{'grid-column-start': ((index<5)? 4 : 5 ), 'grid-row-start': ((index<5)? index+2 : index-3 )}"
-                    v-for="(quest, index) in $store.getters.messageboard"
-                    :quest="quest"
-                    :key="quest.adId"></app-quest>-->
         </div>
         <app-popup v-if="popup">
             <app-notify slot="content"></app-notify>
@@ -94,9 +87,9 @@ export default {
         grid-row-start: 2;
         grid-row-end: 3;
         grid-template-columns: 1fr;
-        grid-template-rows: repeat(5, 1fr) 50px;
+        grid-template-rows: 1fr;
         grid-auto-flow: row dense;
-
+        justify-items: stretch;
     }
     .desktop-shop {
         grid-column-start: 2;

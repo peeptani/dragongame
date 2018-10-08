@@ -10,7 +10,7 @@
                 <p class="game-text">Gold <span class="game-info">{{ game.gold }}</span></p>
                 <p class="game-text">Score <span class="game-info">{{ game.score }}</span></p>
             </div>
-            <button class="header-button" @click="$store.dispatch('startGame')">New Game</button>
+            <button class="header-button" @click="newGame">New Game</button>
         </div>
     </div>
 </template>
@@ -30,6 +30,10 @@ export default {
     methods: {
         toggleShop () {
             this.$store.dispatch('toggleMobileShop', !this.mobileShop)
+        },
+        newGame () {
+            this.$store.dispatch('toggleMobileShop', false)
+            this.$store.dispatch('startGame')
         }
     },
     components: {
@@ -59,7 +63,7 @@ export default {
 }
 .game-title {
     justify-self: start;
-    margin-left: 10px;
+    margin-left: 25px;
     padding: 0px;
     margin-top: 20px;
     font-weight: bold;
@@ -87,10 +91,19 @@ export default {
     white-space: nowrap;
     justify-self: center;
 }
+.success-enter-active {
+    transition: 1.75s;
+    color: gold;
+}
+.success-leave-active {
+    transition: 1.75s;
+    color: black;
+}
+.success-enter, .success-leave-to {
+}
 @media (max-width: 1920px) {
     .game-title {
         font-size: 25px;
-        font-family: "Lucida Console", Monaco, monospace;
     }
     .game-info {
         font-size: 25px;
@@ -147,12 +160,6 @@ export default {
         border: none;
         height: 40px;
     }
-    /*.shop-enter-active, .shop-leave-active {
-        transition: color 1.25s ease-out;
-    }
 
-    .shop-enter, .shop-leave-to {
-        color: gold;
-    }*/
 }
 </style>

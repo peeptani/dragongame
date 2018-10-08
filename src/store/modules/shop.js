@@ -2,7 +2,8 @@ import axios from 'axios'
 
 const state = {
     shop: {},
-    mobileShop: false
+    mobileShop: false,
+    doingShopping: false
 }
 
 const mutations = {
@@ -11,6 +12,10 @@ const mutations = {
     },
     setMobileShop: (state, payload) => {
         state.mobileShop = payload;
+    },
+    shopping: (state, payload) => {
+        state.doingShopping = payload;
+        console.log(payload)
     }
 }
 
@@ -24,6 +29,7 @@ const actions = {
         axios.post(`https://www.dragonsofmugloar.com/api/v2/${game.gameId}/shop/buy/${item.id}`)
             .then(response => response.data)
             .then(payload => {
+                commit('shopping', true)
                 commit('updateGameState', payload)
                 dispatch('makeMessageboard', game)
                 dispatch('makeShop', game)
@@ -31,12 +37,16 @@ const actions = {
     },
     toggleMobileShop: ({ commit }, payload) => {
         commit('setMobileShop', payload)
+    },
+    toggleShopping: ({ commit }, payload) => {
+        commit('shopping', payload)
     }
 }
 
 const getters = {
     shop: state => state.shop,
-    mobileShop: state => state.mobileShop
+    mobileShop: state => state.mobileShop,
+    doingShopping: state => state.doingShopping
 }
 
 export default {

@@ -13,7 +13,7 @@ const mutations = {
     }
 }
 const actions = {
-    makeMessageboard: ({ commit }, gameData) => {
+    makeMessageboard: ({ commit, dispatch }, gameData) => {
         axios.get(`https://www.dragonsofmugloar.com/api/v2/${ gameData.gameId }/messages`)
             .then(response => {
                 // Some of data is encoded.
@@ -27,9 +27,12 @@ const actions = {
                         }
                     }
                 }
-                return response.data
-            })
+                return response.data})
             .then(payload => commit('setMessageboardState', payload))
+                setTimeout(() => {
+                    dispatch('toggleShopping', false)
+                }, 250);
+
                 // TODO reputation still being implemented?
                 //.then(axios.post(`https://www.dragonsofmugloar.com/api/v2/${ gameData.gameId }/investigate/reputation`))
                     //.then(response => console.log(response))
@@ -39,7 +42,9 @@ const actions = {
         axios.post(`https://www.dragonsofmugloar.com/api/v2/${ game.gameId }/solve/${ quest.adId }`)
             .then(response => response.data)
                 .then(payload => dispatch('updateGameState', payload))
-                    .then (dispatch('makeMessageboard', game));
+                    .then (dispatch('makeMessageboard', game))
+        dispatch('deleteQuestResult')
+
     }
 }
 

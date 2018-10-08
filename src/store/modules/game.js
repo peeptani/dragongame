@@ -2,7 +2,8 @@ import axios from 'axios'
 
 const state = {
     game: {},
-    mobileView: true
+    mobileView: true,
+    questResult: ''
 }
 
 const mutations = {
@@ -14,6 +15,12 @@ const mutations = {
     },
     setMobileView: (state, payload) => {
         state.mobileView = payload;
+    },
+    setQuestResult: (state, payload) => {
+        state.questResult = payload;
+    },
+    resetQuestResult: (state) => {
+        state.questResult = '';
     }
 }
 
@@ -29,18 +36,27 @@ const actions = {
     },
     updateGameState:({ commit, dispatch }, payload) => {
         commit('updateGameState', payload);
+        if (payload.success == true) {
+            commit('setQuestResult', true)
+        } else {
+            commit('setQuestResult', false)
+        }
         if (payload.lives <= 0) {
             dispatch('showDeathPopup', true)}
     },
     changeViewport:({ commit }, payload) => {
         commit('setMobileView', payload)
+    },
+    deleteQuestResult: ({commit}) => {
+        commit('resetQuestResult')
     }
 }
 
 
 const getters = {
     game: state => state.game,
-    mobileView: state => state.mobileView
+    mobileView: state => state.mobileView,
+    questResult: state => state.questResult
 }
 
 export default {

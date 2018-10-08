@@ -5,6 +5,7 @@
                 <div class="modal-container">
                     <div class="modal-content">
                         <slot name="content"></slot>
+                        <slot name="info"></slot>
                     </div>
                 </div>
             </div>

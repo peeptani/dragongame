@@ -3,11 +3,9 @@
         <div class="modal-mask">
             <div class="modal-wrapper">
                 <div class="modal-container">
-
-                    <div class="modal-header">
+                    <div class="modal-content">
                         <slot name="content"></slot>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -23,14 +21,11 @@
     width: 100%;
     height: 100%;
     background-color: rgba(1, 5, 6, .3);
-
     transition: opacity .3s ease;
 }
-
 .modal-wrapper {
     vertical-align: middle;
 }
-
 .modal-container {
     position: fixed;
     top: 50%;
@@ -42,12 +37,9 @@
     box-shadow: 0 2px 8px rgba(0, 0, 0, .66);
     border-radius: 5px;
 }
-
-.modal-header h3 {
-    margin-top: 0;
-    color: #42b983;
+.modal-content {
+    text-align: center;
 }
-
 .modal-body {
 }
 
@@ -63,11 +55,9 @@
 .modal-enter {
     opacity: 0;
 }
-
 .modal-leave-active {
     opacity: 0;
 }
-
 .modal-enter .modal-container,
 .modal-leave-active .modal-container {
     -webkit-transform: scale(1.1);

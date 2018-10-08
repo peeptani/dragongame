@@ -15,8 +15,8 @@ const mutations = {
     setPopup(state, payload) {
         state.popup = payload;
     }
-
 }
+
 const actions = {
     showStartPopup: ({ commit }) => {
         commit('setPopup', 'start')
@@ -27,7 +27,6 @@ const actions = {
     closePopup: ({ commit }) => {
         commit('setPopup', false)
     }
-
 }
 
 const getters = {

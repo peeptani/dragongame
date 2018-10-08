@@ -1,11 +1,9 @@
 <template>
-    <div>
-        <b-list-group>
-            <div class="shop" v-for="item in shop" :key="item.Id">
-                <p style="margin: 0 0 auto">{{ item.name }}</p>
-                <b-button :class="{disabled: buttonState(item)}" class="badge badge-warning shop-button" @click="buyItem(item)">{{ item.cost }}</b-button>
-            </div>
-        </b-list-group>
+    <div class="shop">
+        <div class="shop-item" v-for="item in shop" :key="item.Id">
+            <p class="shop-item-text">{{ item.name }}</p>
+            <button :class="(buttonState(item) ? 'disabled' : 'enabled')" class="shop-button" @click="buyItem(item)">{{ item.cost }}</button>
+        </div>
     </div>
 </template>
 
@@ -23,33 +21,60 @@ export default {
             }
         },
         buttonState (item) {
-            if (item.cost <= this.game.gold)
-                return false
-            else
-                return true
+            return item.cost > this.game.gold;
         }
     }
-
 }
 </script>
 
 <style>
-@media (max-width: 768px) {
-    .shop {
-        width: 100%;
+.shop-button {
+    float: right;
+    margin-left: auto;
+    background-color: darkgray;
+    border-radius: 5px;
+    border: 1px solid;
+    padding: 0 5px;
+}
+.disabled {
+    pointer-events: none;
+    opacity: .8;
+}
+.enabled {
+    background-color: gold;
+}
+.shop-button:focus {
+    outline: none;
+}
+.shop-item {
+    background-color: whitesmoke;
+    margin: 3px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid lightgrey;
+    z-index: 9998;
+}
+.shop-item-text {
+    margin: 0 auto 0 0;
+}
+.shop {
+    max-height: 90%;
+}
+@media (max-width: 1920px) {
+    .shop-item {
+        padding: 15px;
     }
 }
-    .shop {
-        border: 1px solid lightgrey;
-        padding: 15px;
-        background-color: whitesmoke;
-        margin: 3px;
-        border-radius: 5px;
-        display: flex;
-        align-items: center;
+@media (max-width: 768px) {
+    .shop-item {
+        padding: 10px;
     }
-    .shop-button {
-        float: right;
-        margin-left: auto;
+}
+@media (max-height: 640px) {
+    .shop-item {
+        max-height: 37px;
     }
+}
 </style>

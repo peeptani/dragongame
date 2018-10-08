@@ -7,7 +7,7 @@
             </div>
             <app-questlist class="game-quests-column"></app-questlist>
 
-            <!--<app-quest TODO Find more graceful way to implent v-for placing of quests on grid. This would help unaccepted quests to stay on same location.
+            <!--<app-quest TODO Find more graceful way to implement v-for placing of quests on grid. This would help unaccepted quests to stay on same location.
                     class="game-quests-column"
                     :style="{'grid-column-start': ((index<5)? 4 : 5 ), 'grid-row-start': ((index<5)? index+2 : index-3 )}"
                     v-for="(quest, index) in $store.getters.messageboard"
@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import Shop from './Shop.vue';
+import AppShop from './Shop.vue';
 import Questlist from './Questlist.vue';
 import Quest from './Quest.vue'
 import Header from './Header.vue';
@@ -32,7 +32,7 @@ import { mapGetters } from 'vuex';
 
 export default {
     components: {
-        appShop: Shop,
+        AppShop,
         appQuestlist: Questlist,
         appHeader: Header,
         appQuest: Quest,
@@ -43,8 +43,8 @@ export default {
         ...mapGetters(['game', 'messageboard', 'shop', 'reputation', 'mobileView', 'mobileShop', 'popup'])
     },
     created () {
-        this.$store.dispatch('startGame');
-        this.$store.dispatch('showStartPopup');
+        this.$store.dispatch('startGame')
+        this.$store.dispatch('showStartPopup')
         if (window.innerWidth<=768) {
             this.$store.dispatch('changeViewport', true)
             this.$store.dispatch('toggleMobileShop', false)
@@ -69,10 +69,17 @@ export default {
 </script>
 
 <style>
+.game-grid {
+    display: grid;
+}
+.game-quests-column{
+    align-self: stretch;
+    display: grid;
+}
 @media (max-width: 1920px) {
     .game-grid {
         grid-template-columns: 40px 280px 40px 1fr 40px;
-        grid-template-rows: 100px 1fr ;
+        grid-template-rows: 80px 1fr ;
         grid-auto-flow: dense;
     }
     .desktop-shop {
@@ -86,21 +93,22 @@ export default {
         grid-column-end: 5;
         grid-row-start: 2;
         grid-row-end: 3;
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: repeat(5, 1fr);
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(5, 1fr) 50px;
+        grid-auto-flow: row dense;
 
-    }
-}
-@media (max-width: 768px) {
-    .game-grid {
-        grid-template-columns: auto 1fr auto;
-        grid-template-rows: 50px 1fr;
     }
     .desktop-shop {
         grid-column-start: 2;
         grid-column-end: 3;
         grid-row-start: 2;
         grid-row-end: 3;
+    }
+}
+@media (max-width: 768px) {
+    .game-grid {
+        grid-template-columns: auto 1fr auto;
+        grid-template-rows: 50px 1fr;
     }
     .game-quests-column {
         justify-self: center;
@@ -109,13 +117,13 @@ export default {
         grid-row-start: 3;
         grid-row-end: 12;
         grid-template-columns: 1fr ;
-        grid-template-rows: repeat(10, 1fr);
-
+        grid-template-rows: repeat(10, 1fr) 50px;
     }
     .mobile-shop {
         display: flex;
-        align-items: center;
+        flex-direction: column;
         justify-content: center;
+        align-content: flex-start;
         position: fixed;
         width: 100%;
         height: 100%;
@@ -124,12 +132,5 @@ export default {
         box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
         transition: all .3s ease;
     }
-}
-.game-grid {
-    display: grid;
-}
-.game-quests-column{
-    align-self: stretch;
-    display: grid;
 }
 </style>

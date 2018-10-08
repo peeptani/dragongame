@@ -1,15 +1,14 @@
 <template>
-    <div>
-        <app-quest class="game-quests" :quest="messageboard[0]" ></app-quest>
-        <app-quest class="game-quests" :quest="messageboard[1]" ></app-quest>
-        <app-quest class="game-quests" :quest="messageboard[2]" ></app-quest>
-        <app-quest class="game-quests" :quest="messageboard[3]" ></app-quest>
-        <app-quest class="game-quests" :quest="messageboard[4]" ></app-quest>
-        <app-quest class="game-quests" :quest="messageboard[5]" ></app-quest>
-        <app-quest class="game-quests" :quest="messageboard[6]" ></app-quest>
-        <app-quest class="game-quests" :quest="messageboard[7]" ></app-quest>
-        <app-quest class="game-quests" :quest="messageboard[8]" ></app-quest>
-        <app-quest class="game-quests" :quest="messageboard[9]" ></app-quest>
+    <div class="quest-list">
+        <transition-group name="quest" mode="out-in">
+            <app-quest
+                    v-for="quest in messageboard"
+                    :quest="quest"
+                    :key="quest.adId"
+                    @click="remove(key)"
+            ></app-quest>
+        </transition-group>
+
     </div>
 </template>
 
@@ -18,12 +17,38 @@ import Quest from './Quest.vue'
 import { mapGetters } from 'vuex';
 
 export default {
-    computed: mapGetters (['messageboard']),   components: {
+    data () {
+        return {
+            columnOne: {},
+            columnTwo: {}
+        }
+    },
+    computed: {
+        ...mapGetters (['messageboard'])
+    },
+    components: {
         appQuest: Quest
+    },
+    methods: {
+        board() {
+            console.log(this.messageboard)
+        }
     }
 }
 </script>
-
 <style>
+    .quest-enter-active {
+        transition: .75s;
+        visibility: hidden;
+    }
+    .quest-leave-active {
+        transition: opacity .75s ease-in-out;
+        position: initial;
+    }
+    .quest-enter, .quest-leave-to {
+        opacity: 0;
+    }
 
+    .quest-list {
+    }
 </style>

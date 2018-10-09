@@ -5,10 +5,10 @@ import {Howl, Howler} from 'howler'
 /*let coinSound = new Audio('/coin.mp3')
 let damageSound = new Audio('/damage.mp3')*/
 let coinSound = new Howl({
-    src: [`./../../coin.mp3`]
+    src: [`./coin.mp3`]
 })
 let damageSound = new Howl({
-    src: [`./../../damage.mp3`]
+    src: [`./damage.mp3`]
 })
 
 const state = {

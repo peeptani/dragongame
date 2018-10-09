@@ -3,7 +3,7 @@ import {Howl, Howler} from 'howler'
 
 // let clickSound = new Audio('/click.mp3')
 let clickSound = new Howl({
-    src: [`./../../click.mp3`]
+    src: [`./click.mp3`]
 })
 const state = {
     shop: {},

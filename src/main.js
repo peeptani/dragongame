@@ -2,7 +2,6 @@ import Vue from 'vue'
 import App from './App.vue'
 import BootstrapVue from 'bootstrap-vue'
 import { store } from './store/index.js'
-import {Howl, Howler} from 'howler'
 
 Vue.use(BootstrapVue)
 

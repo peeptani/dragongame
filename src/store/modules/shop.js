@@ -1,10 +1,7 @@
 import axios from 'axios'
-import {Howl, Howler} from 'howler'
 
-// let clickSound = new Audio('/click.mp3')
-let clickSound = new Howl({
-    src: [`./click.mp3`]
-})
+let clickSound = new Audio('../../../public/click.mp3')
+
 const state = {
     shop: {},
     mobileShop: false,

@@ -1,4 +1,6 @@
-# dragons
+# Dragons of Mugloar game
+
+https://peeptani.github.io/dragongame/
 
 ## Project setup
 ```
